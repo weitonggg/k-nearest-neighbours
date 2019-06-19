@@ -49,4 +49,4 @@ for (i in 1:10){
   error_rate <- c(error_rate, (error_num/nrow(validate) * 100))
 }
 plot(error_rate, x = 1:10, type = "b", xlab = "k", ylab = "Validation error rate (%)")
-# min error rate at k = 4/8
+# min error rate at k = 4 or 8
