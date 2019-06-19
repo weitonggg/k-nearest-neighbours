@@ -41,6 +41,7 @@ training <- scaled_heart[indices == 1, ]
 validate <- scaled_heart[indices == 2, ]
 testing <- scaled_heart[indices == 3, ]
 
+set.seed(35)
 error_rate <- c()
 for (i in 1:10){
   pred <- knn(train = training[,-24], test = validate[,-24],
@@ -49,4 +50,12 @@ for (i in 1:10){
   error_rate <- c(error_rate, (error_num/nrow(validate) * 100))
 }
 plot(error_rate, x = 1:10, type = "b", xlab = "k", ylab = "Validation error rate (%)")
-# min error rate at k = 4 or 8
+# min error rate at k = 8
+
+# build classifier using k = 8
+knn_pred <- knn(train = training[,-24], test = testing[,-24],
+                cl = training$target, k = 8)
+# confusion matrix
+table("knn" = knn_pred, "labels" = testing$target)
+# accuracy 
+sum(knn_pred == testing$target)
